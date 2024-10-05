@@ -1,0 +1,31 @@
+name: Nexus Pubish
+description: Publish Artifact to Nexus
+inputs:
+  nexus_url:
+    description: Nexus repository URL
+    required: true
+  username:
+    description: Nexus Username
+    required: true
+  password:
+    description: Nexus password or token
+    required: true
+  file_path:
+    description: File path
+    required: true
+  artifact_id:
+    description: Artifact name
+    required: true
+  group_id: 
+    description: GroupId 
+    required: true
+  version: 
+    description: Application version
+    required: true
+  repository_id:
+    description: Repository id to publish artifact
+    required: true
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
