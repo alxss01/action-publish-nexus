@@ -1,31 +1,41 @@
-name: Nexus Pubish
-description: Publish Artifact to Nexus
+name: 'Publish Nexus'
+description: 'Publish Artifact Nexus'
+
 inputs:
-  nexus_url:
-    description: Nexus repository URL
-    required: true
-  username:
-    description: Nexus Username
-    required: true
-  password:
-    description: Nexus password or token
+  app-version:
+    description: versão da aplicação
     required: true
   file_path:
-    description: File path
+    description: diretório do arquivo
     required: true
-  artifact_id:
-    description: Artifact name
+  groupId:
+    description: diretório de publish nexus
     required: true
-  group_id: 
-    description: GroupId 
+  artifactId: 
+    description: Nome da aplicação
     required: true
-  version: 
-    description: Application version
+  repositoryId:
+    description: Repositório Nexus
     required: true
-  repository_id:
-    description: Repository id to publish artifact
-    required: true
+    default: Nexus
+
 
 runs:
-  using: 'node20'
-  main: 'dist/index.js'
+  using: composite
+  steps:
+
+    - name: Upload
+      shell: bash
+      run: |
+        chmod +x ${{ github.action_path }}/publish.sh
+        ${{ github.action_path }}/publish.sh
+      env:
+        file: ${{ inputs.file_path }}
+        groupId: ${{ inputs.groupId }}
+        artifactId: ${{ inputs.artifactId }}
+        packaging: jar 
+        version: ${{ inputs.app-version }}
+        repositoryId: Nexus 
+        username: ${{ vars.NEXUS_USERNAME }}
+        password: ${{ secrets.NEXUS_PASSWORD }}
+        url: ${{ vars.NEXUS_URL }} 
