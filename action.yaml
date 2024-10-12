@@ -3,13 +3,13 @@ description: 'Publish Artifact Nexus'
 
 inputs:
   app-version:
-    description: versão da aplicação
+    description: Versão da aplicação
     required: true
   file_path:
-    description: diretório do arquivo
+    description: Diretório do arquivo
     required: true
   groupId:
-    description: diretório de publish nexus
+    description: Diretório de publish nexus
     required: true
   artifactId: 
     description: Nome da aplicação
@@ -18,6 +18,15 @@ inputs:
     description: Repositório Nexus
     required: true
     default: Nexus
+  username: 
+    description: Usuário Nexus
+    required: true
+  password: 
+    description: Password Nexus
+    required: true
+  url: 
+    description: URL Nexus
+    required: true
 
 
 runs:
@@ -36,6 +45,6 @@ runs:
         packaging: jar 
         version: ${{ inputs.app-version }}
         repositoryId: Nexus 
-        username: ${{ vars.NEXUS_USERNAME }}
-        password: ${{ secrets.NEXUS_PASSWORD }}
-        url: ${{ vars.NEXUS_URL }} 
+        username: ${{ inputs.username }}
+        password: ${{ inputs.password }}
+        url: ${{ inputs.url }} 
