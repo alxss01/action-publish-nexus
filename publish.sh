@@ -5,7 +5,7 @@ echo "File Path: $file_path"
 mvn=$(which mvn)
 
 $mvn deploy -B -f pom.xml -s ./settings.xml \
-    -Durl=${{ vars.NEXUS_URL }} \
+    -Durl=$url \
     -Dfile=$file_path \
     -DgroupId=$groupId \
     -DartifactId=$artifactId \
